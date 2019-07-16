@@ -2,25 +2,25 @@ import bcrypt from 'bcrypt';
 import faker from 'faker';
 
 interface Users {
-  encryptedPassword: string;
+  password: string;
   username: string;
 }
 
-const username: string = faker.internet.userName();
-
-const password: string = faker.internet.password();
-
-let encryptedPassword: string = '';
-
-bcrypt.hash(password, 10).then(hash => {
-  encryptedPassword = hash;
-});
+const username: string = 'kalitamih';
 
 const users: [Users] = [
   {
-    encryptedPassword,
-    username,
+    password: '1991',
+    username: 'kalitamih',
   },
 ];
 
-export { password, users };
+const [user] = users;
+
+const { password } = user;
+
+bcrypt.hash(password, 10).then(hash => {
+  users[0].password = hash;
+});
+
+export { users };

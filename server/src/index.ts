@@ -1,11 +1,13 @@
 import { ApolloServer, gql } from 'apollo-server-koa';
-import http from 'http';
 import Koa from 'koa';
+
+import resolvers from './resolvers';
+import typeDefs from './schema';
+
+const server = new ApolloServer({ typeDefs, resolvers });
 
 const app = new Koa();
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+server.applyMiddleware({ app });
 
-http.createServer(app.callback()).listen(3001);
+app.listen({ port: 4000 });
