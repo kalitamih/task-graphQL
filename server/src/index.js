@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __importDefault(require("http"));
 var koa_1 = __importDefault(require("koa"));
 var app = new koa_1.default();
 app.use(function (ctx) { return __awaiter(_this, void 0, void 0, function () {
@@ -47,4 +48,4 @@ app.use(function (ctx) { return __awaiter(_this, void 0, void 0, function () {
         return [2 /*return*/];
     });
 }); });
-app.listen(3000);
+http_1.default.createServer(app.callback()).listen(3001);
