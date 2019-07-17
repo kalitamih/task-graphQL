@@ -4,8 +4,13 @@ import jwt from 'jsonwebtoken';
 import { users } from '../data';
 
 interface Users {
+  avatar: string;
   email: string;
+  name: string;
+  lastname: string;
   password: string;
+  phone: string;
+  job: string;
   username: string;
 }
 
@@ -20,11 +25,9 @@ const resolvers = {
       { username, password }: { username: string; password: string }
     ) => {
       const [user] = users.filter((item: Users) => item.username === username);
-
       if (!user) {
         throw new Error('User not found');
       }
-
       const isValidPassword = await bcrypt.compare(password, user.password);
 
       if (!isValidPassword) {
@@ -35,7 +38,6 @@ const resolvers = {
     userInfo: async (root: any, args: any, { currentUser }: { currentUser: string | object }) => {
       if (currentUser) {
         const [user] = users.filter((item: Users) => item.username === currentUser);
-        delete user.password;
         return user;
       }
       return null;

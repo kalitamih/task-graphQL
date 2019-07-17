@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ApolloConsumer } from 'react-apollo';
 import styled from 'styled-components';
 import { SIGNIN_USER } from '../../queries';
-
+import Info from '../Info';
 
 const WrapperLogin: React.FC = styled.div`
   text-align: center;
@@ -51,43 +51,48 @@ const Login: React.FC = (props: any) => {
     console.log(client);
   };
   
-  console.log(props);
-
   return (
     <WrapperLogin>
       <ApolloConsumer>
         {client => (
           <div>
-            <form
-              onSubmit={event => {
-                handleSubmit(event, client);
-              }}
-            >
-              Login:
-              <br />
-              <input
-                type="text"
-                name="login"
-                value={login}
-                required={true}
-                onChange={handleChange}
-              />
-              <br />
-              <br />
-              Password:
-              <br />
-              <input
-                type="password"
-                name="password"
-                value={password}
-                required={true}
-                onChange={handleChange}
-              />
-              <br />
-              <br />
-              <input type="submit" value="Submit" />
-            </form>
-            <button onClick={() => handleSignout(client)}>Signout</button>
+            {!props.session.userInfo && (
+              <form
+                onSubmit={event => {
+                  handleSubmit(event, client);
+                }}
+              >
+                Login:
+                <br />
+                <input
+                  type="text"
+                  name="login"
+                  value={login}
+                  required={true}
+                  onChange={handleChange}
+                />
+                <br />
+                <br />
+                Password:
+                <br />
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  required={true}
+                  onChange={handleChange}
+                />
+                <br />
+                <br />
+                <input type="submit" value="Submit" />
+              </form>
+            )}
+            {props.session.userInfo && (
+              <div>
+                <Info {...props.session.userInfo} />
+                <button onClick={() => handleSignout(client)}>Signout</button>
+              </div>
+            )}
           </div>
         )}
       </ApolloConsumer>

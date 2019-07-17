@@ -13,6 +13,11 @@ export const GET_USER_INFO = gql`
     userInfo {
       username
       email
+      avatar
+      job
+      name
+      lastname
+      phone
     }
   }
 `;

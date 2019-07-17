@@ -39,39 +39,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cors_1 = __importDefault(require("@koa/cors"));
-var apollo_server_koa_1 = require("apollo-server-koa");
+var bcrypt_1 = __importDefault(require("bcrypt"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var koa_1 = __importDefault(require("koa"));
-var koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
-var resolvers_1 = __importDefault(require("./resolvers"));
-var schema_1 = __importDefault(require("./schema"));
+var data_1 = require("../data");
 var KEY = 'Jw2pK7JS';
-var server = new apollo_server_koa_1.ApolloServer({
-    context: function (_a) {
-        var ctx = _a.ctx;
-        return __awaiter(_this, void 0, void 0, function () {
-            var token, currentUser;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        token = ctx.headers.authorization;
-                        currentUser = '';
-                        if (!(token !== 'null' && token !== '')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, jsonwebtoken_1.default.verify(token, KEY)];
-                    case 1:
-                        currentUser = _b.sent();
-                        return [2 /*return*/, { currentUser: currentUser }];
-                    case 2: return [2 /*return*/, { currentUser: currentUser }];
-                }
+var createToken = function (username, secret) { return jsonwebtoken_1.default.sign(username, secret); };
+var resolvers = {
+    Query: {
+        signinUser: function (root, _a) {
+            var username = _a.username, password = _a.password;
+            return __awaiter(_this, void 0, void 0, function () {
+                var user, isValidPassword;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            user = data_1.users.filter(function (item) { return item.username === username; })[0];
+                            if (!user) {
+                                throw new Error('User not found');
+                            }
+                            return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
+                        case 1:
+                            isValidPassword = _b.sent();
+                            if (!isValidPassword) {
+                                throw new Error('Invalid password');
+                            }
+                            return [2 /*return*/, { token: createToken(user.username, KEY) }];
+                    }
+                });
             });
-        });
+        },
+        userInfo: function (root, args, _a) {
+            var currentUser = _a.currentUser;
+            return __awaiter(_this, void 0, void 0, function () {
+                var user;
+                return __generator(this, function (_b) {
+                    if (currentUser) {
+                        user = data_1.users.filter(function (item) { return item.username === currentUser; })[0];
+                        return [2 /*return*/, user];
+                    }
+                    return [2 /*return*/, null];
+                });
+            });
+        },
     },
-    resolvers: resolvers_1.default,
-    typeDefs: schema_1.default,
-});
-var app = new koa_1.default();
-app.use(cors_1.default());
-app.use(koa_bodyparser_1.default());
-server.applyMiddleware({ app: app });
-app.listen({ port: 4000 });
+};
+exports.default = resolvers;

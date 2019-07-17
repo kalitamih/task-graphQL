@@ -4,8 +4,13 @@ const typeDefs = `
   }
 
   type User { 
+    avatar: String!
     email: String!
-    username: String!
+    username: String!   
+    name: String!
+    lastname: String!   
+    phone: String!
+    job: String!
   }
 
   type Query {
