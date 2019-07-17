@@ -4,7 +4,8 @@ const typeDefs = `
   }
 
   type User { 
-    username: String!      
+    email: String!
+    username: String!
   }
 
   type Query {

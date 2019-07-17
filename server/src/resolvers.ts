@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { users } from '../data';
 
 interface Users {
+  email: string;
   password: string;
   username: string;
 }
@@ -31,8 +32,13 @@ const resolvers = {
       }
       return { token: createToken(user.username, KEY) };
     },
-    userInfo: () => {
-      return { username: '1221231' };
+    userInfo: async (root: any, args: any, { currentUser }: { currentUser: string | object }) => {
+      if (currentUser) {
+        const [user] = users.filter((item: Users) => item.username === currentUser);
+        delete user.password;
+        return user;
+      }
+      return null;
     },
   },
 };

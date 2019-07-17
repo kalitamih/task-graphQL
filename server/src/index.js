@@ -52,24 +52,18 @@ var KEY = 'Jw2pK7JS';
 app.use(cors_1.default());
 app.use(koa_bodyparser_1.default());
 app.use(function (ctx, next) { return __awaiter(_this, void 0, void 0, function () {
-    var token, currentUser, err_1;
+    var token, currentUser;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 token = ctx.headers.authorization;
-                if (!(token !== 'null')) return [3 /*break*/, 4];
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                if (!(token !== 'null')) return [3 /*break*/, 2];
                 return [4 /*yield*/, jsonwebtoken_1.default.verify(token, KEY)];
-            case 2:
+            case 1:
                 currentUser = _a.sent();
                 ctx.currentUser = currentUser;
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                return [3 /*break*/, 4];
-            case 4:
+                _a.label = 2;
+            case 2:
                 next();
                 return [2 /*return*/];
         }

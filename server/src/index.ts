@@ -7,23 +7,26 @@ import bodyParser from 'koa-bodyparser';
 import resolvers from './resolvers';
 import typeDefs from './schema';
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const KEY: string = 'Jw2pK7JS';
+
+const server = new ApolloServer({
+  context: async ({ ctx }) => {
+    const token = ctx.headers.authorization;
+    let currentUser: string | object = '';
+    if (token !== 'null' && token !== '') {
+      currentUser = await jwt.verify(token, KEY);
+      return { currentUser };
+    }
+    return { currentUser };
+  },
+  resolvers,
+  typeDefs,
+});
 
 const app = new Koa();
 
-const KEY: string = 'Jw2pK7JS';
-
 app.use(cors());
 app.use(bodyParser());
-
-app.use(async (ctx, next) => {
-  const token = ctx.headers.authorization;
-  if (token !== 'null') {
-    const currentUser = await jwt.verify(token, KEY);
-    ctx.currentUser = currentUser;
-  }
-  next();
-});
 
 server.applyMiddleware({ app });
 

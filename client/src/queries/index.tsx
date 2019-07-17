@@ -12,6 +12,7 @@ export const GET_USER_INFO = gql`
   query {
     userInfo {
       username
+      email
     }
   }
 `;

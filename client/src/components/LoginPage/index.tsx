@@ -3,6 +3,7 @@ import { ApolloConsumer } from 'react-apollo';
 import styled from 'styled-components';
 import { SIGNIN_USER } from '../../queries';
 
+
 const WrapperLogin: React.FC = styled.div`
   text-align: center;
 `;
@@ -39,38 +40,55 @@ const Login: React.FC = (props: any) => {
       variables: { username: login, password },
     });
     localStorage.setItem('token', data.signinUser.token);
-    props.refetch();
+    await props.refetch();
     setLogin('');
     setPassword('');
   };
+
+  const handleSignout = (client: any) => {
+    localStorage.setItem('token', '');
+    client.resetStore();
+    console.log(client);
+  };
+  
+  console.log(props);
 
   return (
     <WrapperLogin>
       <ApolloConsumer>
         {client => (
-          <form
-            onSubmit={event => {
-              handleSubmit(event, client);
-            }}
-          >
-            Login:
-            <br />
-            <input type="text" name="login" value={login} required={true} onChange={handleChange} />
-            <br />
-            <br />
-            Password:
-            <br />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              required={true}
-              onChange={handleChange}
-            />
-            <br />
-            <br />
-            <input type="submit" value="Submit" />
-          </form>
+          <div>
+            <form
+              onSubmit={event => {
+                handleSubmit(event, client);
+              }}
+            >
+              Login:
+              <br />
+              <input
+                type="text"
+                name="login"
+                value={login}
+                required={true}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+              Password:
+              <br />
+              <input
+                type="password"
+                name="password"
+                value={password}
+                required={true}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+              <input type="submit" value="Submit" />
+            </form>
+            <button onClick={() => handleSignout(client)}>Signout</button>
+          </div>
         )}
       </ApolloConsumer>
     </WrapperLogin>
