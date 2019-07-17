@@ -31,6 +31,9 @@ const resolvers = {
       }
       return { token: createToken(user.username, KEY) };
     },
+    userInfo: () => {
+      return { username: '1221231' };
+    },
   },
 };
 

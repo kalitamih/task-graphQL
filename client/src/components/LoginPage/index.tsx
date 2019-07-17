@@ -18,7 +18,7 @@ interface SigninUserVariables {
   password: string;
 }
 
-const Login: React.FC = () => {
+const Login: React.FC = (props: any) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,14 +38,21 @@ const Login: React.FC = () => {
       query: SIGNIN_USER,
       variables: { username: login, password },
     });
-    console.log(data);
+    localStorage.setItem('token', data.signinUser.token);
+    props.refetch();
+    setLogin('');
+    setPassword('');
   };
 
   return (
     <WrapperLogin>
       <ApolloConsumer>
         {client => (
-          <form onSubmit={(event) => {handleSubmit(event, client)}}>
+          <form
+            onSubmit={event => {
+              handleSubmit(event, client);
+            }}
+          >
             Login:
             <br />
             <input type="text" name="login" value={login} required={true} onChange={handleChange} />

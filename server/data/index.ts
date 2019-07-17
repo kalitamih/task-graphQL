@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import faker from 'faker';
 
 interface Users {
+  email: string;
   password: string;
   username: string;
 }
@@ -10,6 +11,7 @@ const username: string = 'kalitamih';
 
 const users: [Users] = [
   {
+    email: faker.internet.email(),
     password: '1991',
     username: 'kalitamih',
   },

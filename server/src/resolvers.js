@@ -68,6 +68,9 @@ var resolvers = {
                 });
             });
         },
+        userInfo: function () {
+            return { username: '1221231' };
+        },
     },
 };
 exports.default = resolvers;

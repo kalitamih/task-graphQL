@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var bcrypt_1 = __importDefault(require("bcrypt"));
+var faker_1 = __importDefault(require("faker"));
 var username = 'kalitamih';
 var users = [
     {
+        email: faker_1.default.internet.email(),
         password: '1991',
         username: 'kalitamih',
     },

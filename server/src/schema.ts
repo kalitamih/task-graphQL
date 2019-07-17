@@ -3,8 +3,13 @@ const typeDefs = `
     token: String!
   }
 
+  type User { 
+    username: String!      
+  }
+
   type Query {
-    signinUser(username: String!, password: String!): Token
+    userInfo: User
+    signinUser(username: String!, password: String!): Token    
   }
 `;
 

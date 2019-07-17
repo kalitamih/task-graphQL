@@ -7,3 +7,11 @@ export const SIGNIN_USER = gql`
     }
   }
 `;
+
+export const GET_USER_INFO = gql`
+  query {
+    userInfo {
+      username
+    }
+  }
+`;
