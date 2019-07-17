@@ -1,7 +1,5 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 interface User {
   avatar: string;
   email: string;
@@ -19,15 +17,13 @@ const Info: React.FC = (props: any) => {
     <div>
       <img src={avatar} alt="Avatar" />
       <div>
-        <h3>
+        <h2>
           {name} {lastname}
-        </h3>
+        </h2>
       </div>
-      <ul>
-        <li>Email: {email}</li>
-        <li>Phone: {phone}</li>
-        <li>Username: {username}</li>
-      </ul>
+      <h4>{email}</h4>
+      <h4>{phone}</h4>
+      <h4>{username}</h4>
     </div>
   );
 };

@@ -10,9 +10,9 @@ const client = new ApolloClient({
   fetchOptions: {
     credentials: 'include',
   },
-  onError: ({ networkError }) => {
-    if (networkError) {
-      console.log('networkError', networkError);
+  onError: ({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      console.log('networkError', graphQLErrors);
     }
   },
   request: operation => {

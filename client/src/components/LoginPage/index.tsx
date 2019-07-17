@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { ApolloConsumer } from 'react-apollo';
-import styled from 'styled-components';
 import { SIGNIN_USER } from '../../queries';
+import { Button, Error, Input, Title, Wrapper } from '../../style';
 import Info from '../Info';
-
-const WrapperLogin: React.FC = styled.div`
-  text-align: center;
-`;
 
 interface SigninUser {
   signinUser: {
@@ -22,7 +18,7 @@ interface SigninUserVariables {
 const Login: React.FC = (props: any) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = event.target;
     if (name === 'login') {
@@ -35,68 +31,67 @@ const Login: React.FC = (props: any) => {
 
   const handleSubmit = async (event: React.FormEvent, client: any) => {
     event.preventDefault();
-    const { data } = await client.query({
-      query: SIGNIN_USER,
-      variables: { username: login, password },
-    });
-    localStorage.setItem('token', data.signinUser.token);
-    await props.refetch();
-    setLogin('');
-    setPassword('');
+    setError('');
+    try {
+      const { data } = await client.query({
+        query: SIGNIN_USER,
+        variables: { username: login, password },
+      });
+      localStorage.setItem('token', data.signinUser.token);
+      await props.refetch();
+      setLogin('');
+      setPassword('');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleSignout = (client: any) => {
     localStorage.setItem('token', '');
     client.resetStore();
-    console.log(client);
   };
-  
+
   return (
-    <WrapperLogin>
-      <ApolloConsumer>
-        {client => (
-          <div>
-            {!props.session.userInfo && (
-              <form
-                onSubmit={event => {
-                  handleSubmit(event, client);
-                }}
-              >
-                Login:
-                <br />
-                <input
-                  type="text"
-                  name="login"
-                  value={login}
-                  required={true}
-                  onChange={handleChange}
-                />
-                <br />
-                <br />
-                Password:
-                <br />
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  required={true}
-                  onChange={handleChange}
-                />
-                <br />
-                <br />
-                <input type="submit" value="Submit" />
-              </form>
-            )}
-            {props.session.userInfo && (
-              <div>
-                <Info {...props.session.userInfo} />
-                <button onClick={() => handleSignout(client)}>Signout</button>
-              </div>
-            )}
-          </div>
-        )}
-      </ApolloConsumer>
-    </WrapperLogin>
+    <ApolloConsumer>
+      {client => (
+        <Wrapper>
+          {!props.session.userInfo && (
+            <form
+              onSubmit={event => {
+                handleSubmit(event, client);
+              }}
+            >
+              <Title>Login:</Title>
+              <Input
+                type="text"
+                name="login"
+                value={login}
+                required={true}
+                onChange={handleChange}
+              />
+              <Title>Password:</Title>
+              <Input
+                type="password"
+                name="password"
+                value={password}
+                required={true}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+              <Button type="submit">Submit</Button>
+            </form>
+          )}
+          {props.session.userInfo && (
+            <div>
+              <Info {...props.session.userInfo} />
+              <Button onClick={() => handleSignout(client)}>Signout</Button>
+            </div>
+          )}
+          {error && <Error>{error}</Error>}
+        </Wrapper>
+      )}
+    </ApolloConsumer>
   );
 };
 
