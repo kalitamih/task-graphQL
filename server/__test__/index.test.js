@@ -34,44 +34,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cors_1 = __importDefault(require("@koa/cors"));
-var apollo_server_koa_1 = require("apollo-server-koa");
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var koa_1 = __importDefault(require("koa"));
-var koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
-var resolvers_1 = __importDefault(require("./resolvers"));
-var schema_1 = __importDefault(require("./schema"));
+var graphql_request_1 = require("graphql-request");
 var constants_1 = require("../constants");
-var server = new apollo_server_koa_1.ApolloServer({
-    context: function (_a) {
-        var ctx = _a.ctx;
-        return __awaiter(_this, void 0, void 0, function () {
-            var token, currentUser;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        token = ctx.headers.authorization;
-                        currentUser = '';
-                        if (!token) return [3 /*break*/, 2];
-                        return [4 /*yield*/, jsonwebtoken_1.default.verify(token, constants_1.KEY)];
-                    case 1:
-                        currentUser = _b.sent();
-                        return [2 /*return*/, { currentUser: currentUser }];
-                    case 2: return [2 /*return*/, { currentUser: currentUser }];
-                }
-            });
-        });
-    },
-    resolvers: resolvers_1.default,
-    typeDefs: schema_1.default,
-});
-var app = new koa_1.default();
-app.use(cors_1.default());
-app.use(koa_bodyparser_1.default());
-server.applyMiddleware({ app: app });
-app.listen({ port: constants_1.PORT });
+var query = "{\n    signinUser(username: \"kalitamih\", password: \"1991\") {\n      token\n    }\n  }";
+test('Check token', function () { return __awaiter(_this, void 0, void 0, function () {
+    var response, signinUser, token;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, graphql_request_1.request(constants_1.LINK, query)];
+            case 1:
+                response = _a.sent();
+                signinUser = response.signinUser;
+                token = signinUser.token;
+                expect(token.length).toEqual(77);
+                return [2 /*return*/];
+        }
+    });
+}); });

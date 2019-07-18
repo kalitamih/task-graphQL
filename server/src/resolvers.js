@@ -43,7 +43,9 @@ var bcrypt_1 = __importDefault(require("bcrypt"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var data_1 = require("../data");
 var constants_1 = require("../constants");
-var createToken = function (username, secret) { return jsonwebtoken_1.default.sign(username, secret); };
+var createToken = function (username, secret) {
+    return jsonwebtoken_1.default.sign(username, secret);
+};
 var resolvers = {
     Query: {
         signinUser: function (root, _a) {
@@ -53,7 +55,7 @@ var resolvers = {
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
-                            user = data_1.users.filter(function (item) { return item.username === username; })[0];
+                            user = data_1.users.find(function (item) { return item.username === username; });
                             if (!user) {
                                 throw new Error('User not found');
                             }
@@ -71,11 +73,9 @@ var resolvers = {
         userInfo: function (root, args, _a) {
             var currentUser = _a.currentUser;
             return __awaiter(_this, void 0, void 0, function () {
-                var user;
                 return __generator(this, function (_b) {
                     if (currentUser) {
-                        user = data_1.users.filter(function (item) { return item.username === currentUser; })[0];
-                        return [2 /*return*/, user];
+                        return [2 /*return*/, data_1.users.find(function (item) { return item.username === currentUser; }) || null];
                     }
                     return [2 /*return*/, null];
                 });

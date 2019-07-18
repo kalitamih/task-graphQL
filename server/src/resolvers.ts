@@ -1,11 +1,14 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-import { users } from '../data';
+import { users } from '../data'
 
-import { KEY } from '../constants';
+import { KEY } from '../constants'
 
-const createToken = (username: string, secret: string) => jwt.sign(username, secret);
+import { User } from '../data/interfaces'
+
+const createToken = (username: string, secret: string) =>
+  jwt.sign(username, secret)
 
 const resolvers = {
   Query: {
@@ -13,24 +16,28 @@ const resolvers = {
       root: any,
       { username, password }: { username: string; password: string }
     ) => {
-      const user = users.find((item: Users) => item.username === username);
+      const user = users.find((item: User) => item.username === username)
       if (!user) {
-        throw new Error('User not found');
+        throw new Error('User not found')
       }
-      const isValidPassword = await bcrypt.compare(password, user.password);
+      const isValidPassword = await bcrypt.compare(password, user.password)
 
       if (!isValidPassword) {
-        throw new Error('Invalid password');
+        throw new Error('Invalid password')
       }
-      return { token: createToken(user.username, KEY) };
+      return { token: createToken(user.username, KEY) }
     },
-    userInfo: async (root: any, args: any, { currentUser }: { currentUser: string | object }) => {
+    userInfo: async (
+      root: any,
+      args: any,
+      { currentUser }: { currentUser: string | object }
+    ) => {
       if (currentUser) {
-        return users.find((item: Users) => item.username === currentUser) || null;
+        return users.find((item: User) => item.username === currentUser) || null
       }
-      return null;
+      return null
     },
   },
-};
+}
 
-export default resolvers;
+export default resolvers

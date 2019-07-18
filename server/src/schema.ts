@@ -17,6 +17,6 @@ const typeDefs = `
     userInfo: User
     signinUser(username: String!, password: String!): Token    
   }
-`;
+`
 
-export default typeDefs;
+export default typeDefs
