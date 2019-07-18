@@ -46,7 +46,7 @@ var koa_1 = __importDefault(require("koa"));
 var koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
 var resolvers_1 = __importDefault(require("./resolvers"));
 var schema_1 = __importDefault(require("./schema"));
-var KEY = 'Jw2pK7JS';
+var constants_1 = require("../constants");
 var server = new apollo_server_koa_1.ApolloServer({
     context: function (_a) {
         var ctx = _a.ctx;
@@ -58,7 +58,7 @@ var server = new apollo_server_koa_1.ApolloServer({
                         token = ctx.headers.authorization;
                         currentUser = '';
                         if (!(token !== 'null' && token !== '')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, jsonwebtoken_1.default.verify(token, KEY)];
+                        return [4 /*yield*/, jsonwebtoken_1.default.verify(token, constants_1.KEY)];
                     case 1:
                         currentUser = _b.sent();
                         return [2 /*return*/, { currentUser: currentUser }];
@@ -74,4 +74,4 @@ var app = new koa_1.default();
 app.use(cors_1.default());
 app.use(koa_bodyparser_1.default());
 server.applyMiddleware({ app: app });
-app.listen({ port: 4000 });
+app.listen({ port: constants_1.PORT });

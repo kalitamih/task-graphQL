@@ -12,7 +12,7 @@ interface Users {
   username: string;
 }
 
-const users: [Users] = [
+const users: Users[] = [
   {
     avatar: faker.internet.avatar(),
     email: faker.internet.email(),
@@ -23,14 +23,33 @@ const users: [Users] = [
     phone: faker.phone.phoneNumber(),
     username: 'kalitamih',
   },
+  {
+    avatar: faker.internet.avatar(),
+    email: faker.internet.email(),
+    job: faker.name.jobDescriptor(),
+    lastname: faker.name.lastName(),
+    name: faker.name.firstName(),
+    password: 'react',
+    phone: faker.phone.phoneNumber(),
+    username: 'react',
+  },
+  {
+    avatar: faker.internet.avatar(),
+    email: faker.internet.email(),
+    job: faker.name.jobDescriptor(),
+    lastname: faker.name.lastName(),
+    name: faker.name.firstName(),
+    password: 'admin',
+    phone: faker.phone.phoneNumber(),
+    username: 'admin',
+  },
 ];
 
-const [user] = users;
-
-const { password } = user;
-
-bcrypt.hash(password, 10).then(hash => {
-  users[0].password = hash;
-});
+for (let i = 0; i < 3; i++) {
+  const { password } = users[i];
+  bcrypt.hash(password, 10).then(hash => {
+    users[i].password = hash;
+  });
+}
 
 export { users };

@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var data_1 = require("../data");
-var KEY = 'Jw2pK7JS';
+var constants_1 = require("../constants");
 var createToken = function (username, secret) { return jsonwebtoken_1.default.sign(username, secret); };
 var resolvers = {
     Query: {
@@ -63,7 +63,7 @@ var resolvers = {
                             if (!isValidPassword) {
                                 throw new Error('Invalid password');
                             }
-                            return [2 /*return*/, { token: createToken(user.username, KEY) }];
+                            return [2 /*return*/, { token: createToken(user.username, constants_1.KEY) }];
                     }
                 });
             });

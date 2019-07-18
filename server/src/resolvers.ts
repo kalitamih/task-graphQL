@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { users } from '../data';
 
+import { KEY } from '../constants';
+
 interface Users {
   avatar: string;
   email: string;
@@ -13,8 +15,6 @@ interface Users {
   job: string;
   username: string;
 }
-
-const KEY: string = 'Jw2pK7JS';
 
 const createToken = (username: string, secret: string) => jwt.sign(username, secret);
 

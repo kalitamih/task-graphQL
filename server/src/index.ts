@@ -7,7 +7,7 @@ import bodyParser from 'koa-bodyparser';
 import resolvers from './resolvers';
 import typeDefs from './schema';
 
-const KEY: string = 'Jw2pK7JS';
+import { KEY, PORT } from '../constants';
 
 const server = new ApolloServer({
   context: async ({ ctx }) => {
@@ -30,4 +30,4 @@ app.use(bodyParser());
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 });
+app.listen({ port: PORT });
