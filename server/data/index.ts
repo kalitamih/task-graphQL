@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import faker from 'faker';
 
-interface Users {
+interface User {
   avatar: string;
   email: string;
   name: string;
@@ -12,7 +12,7 @@ interface Users {
   username: string;
 }
 
-const users: Users[] = [
+const users: User[] = [
   {
     avatar: faker.internet.avatar(),
     email: faker.internet.email(),
