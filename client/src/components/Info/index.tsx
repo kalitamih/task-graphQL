@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-interface User {
+interface InfoType {
   avatar: string;
   email: string;
   name: string;
@@ -11,11 +11,11 @@ interface User {
   __typename: string;
 }
 
-const Info: React.FC = (props: any) => {
+const Info: React.FC<InfoType> = props => {
   const { avatar, name, lastname, username, phone, email } = props;
   return (
     <div>
-      <img src={avatar} alt="Avatar" />
+      <img src={avatar} alt="Avatar" width="128" height="128" />
       <div>
         <h2>
           {name} {lastname}

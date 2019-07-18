@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Query } from 'react-apollo';
+import { Query, QueryResult } from 'react-apollo';
 import { GET_USER_INFO } from '../../queries';
 
 const withSession = (Component: React.FC) => (props: any) => (
   <Query query={GET_USER_INFO}>
-    {({ data, loading, refetch }: { data: any; loading: boolean; refetch: any }) => {
+    {({ data, loading, refetch }: QueryResult) => {
       if (loading) {
         return null;
       }

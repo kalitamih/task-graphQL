@@ -4,18 +4,27 @@ import { SIGNIN_USER } from '../../queries';
 import { Button, Error, Input, Title, Wrapper } from '../../style';
 import Info from '../Info';
 
-interface SigninUser {
-  signinUser: {
-    token: string;
-  };
-}
-
-interface SigninUserVariables {
+interface InfoType {
+  avatar: string;
+  email: string;
+  name: string;
+  lastname: string;
+  phone: string;
+  job: string;
   username: string;
-  password: string;
+  __typename: string;
 }
 
-const Login: React.FC = (props: any) => {
+interface UserInfo {
+  userInfo: InfoType | null;
+}
+
+interface LoginProps {
+  refetch: void;
+  session: UserInfo;
+}
+
+const Login: React.FC<any> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -57,6 +66,7 @@ const Login: React.FC = (props: any) => {
         <Wrapper>
           {!props.session.userInfo && (
             <form
+              // tslint:disable-next-line: jsx-no-lambda
               onSubmit={event => {
                 handleSubmit(event, client);
               }}

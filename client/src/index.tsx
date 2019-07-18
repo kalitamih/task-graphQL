@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from './components/LoginPage';
 import withSession from './components/WithSession';
+import { LINK } from './constants';
 
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
@@ -10,9 +11,9 @@ const client = new ApolloClient({
   fetchOptions: {
     credentials: 'include',
   },
-  onError: ({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      console.log('networkError', graphQLErrors);
+  onError: ({ networkError }) => {
+    if (networkError) {
+      console.log('networkError', networkError);
     }
   },
   request: operation => {
@@ -23,7 +24,7 @@ const client = new ApolloClient({
       },
     });
   },
-  uri: 'http://localhost:4000/graphql',
+  uri: LINK,
 });
 
 const LoginPageWithSession = withSession(LoginPage);
