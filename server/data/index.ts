@@ -45,11 +45,11 @@ const users: Users[] = [
   },
 ];
 
-for (let i = 0; i < 3; i++) {
-  const { password } = users[i];
-  bcrypt.hash(password, 10).then(hash => {
-    users[i].password = hash;
-  });
-}
+// for (let i = 0; i < 3; i++) {
+//   const { password } = users[i];
+//   bcrypt.hash(password, 10).then(hash => {
+//     users[i].password = hash;
+//   });
+// }
 
 export { users };
