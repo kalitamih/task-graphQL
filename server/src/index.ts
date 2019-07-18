@@ -13,7 +13,7 @@ const server = new ApolloServer({
   context: async ({ ctx }) => {
     const token = ctx.headers.authorization;
     let currentUser: string | object = '';
-    if (token !== 'null' && token !== '') {
+    if (token) {
       currentUser = await jwt.verify(token, KEY);
       return { currentUser };
     }
