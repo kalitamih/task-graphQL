@@ -5,17 +5,6 @@ import { users } from '../data';
 
 import { KEY } from '../constants';
 
-interface Users {
-  avatar: string;
-  email: string;
-  name: string;
-  lastname: string;
-  password: string;
-  phone: string;
-  job: string;
-  username: string;
-}
-
 const createToken = (username: string, secret: string) => jwt.sign(username, secret);
 
 const resolvers = {
@@ -24,7 +13,7 @@ const resolvers = {
       root: any,
       { username, password }: { username: string; password: string }
     ) => {
-      const [user] = users.filter((item: Users) => item.username === username);
+      const user = users.find((item: Users) => item.username === username);
       if (!user) {
         throw new Error('User not found');
       }
@@ -37,8 +26,7 @@ const resolvers = {
     },
     userInfo: async (root: any, args: any, { currentUser }: { currentUser: string | object }) => {
       if (currentUser) {
-        const [user] = users.filter((item: Users) => item.username === currentUser);
-        return user;
+        return users.find((item: Users) => item.username === currentUser) || null;
       }
       return null;
     },
