@@ -38,7 +38,7 @@ const Login: React.FC<any> = props => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent, client: any) => {
+  const handleSubmit = async (event: React.FormEvent, client: any /* Можно использовать Apollo Client или хук, или HOC */) => {
     event.preventDefault();
     setError('');
     try {
