@@ -33,7 +33,7 @@ const resolvers = {
       { currentUser }: { currentUser: string | object }
     ) => {
       if (currentUser) {
-        return users.find((item: User) => item.username === currentUser) || null
+        return users.find(item => item.username === currentUser) || null
       }
       return null
     },
