@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react'
+import { InfoType } from '../../interfaces'
 
-interface InfoType {
-  avatar: string;
-  email: string;
-  name: string;
-  lastname: string;
-  phone: string;
-  job: string;
-  username: string;
-  __typename: string;
-}
-
-const Info: React.FC<InfoType> = props => {
-  const { avatar, name, lastname, username, phone, email } = props;
+export const Info: React.FC<InfoType> = ({
+  avatar,
+  name,
+  lastname,
+  username,
+  phone,
+  email,
+}) => {
   return (
     <div>
       <img src={avatar} alt="Avatar" width="128" height="128" />
@@ -25,7 +21,5 @@ const Info: React.FC<InfoType> = props => {
       <h4>{phone}</h4>
       <h4>{username}</h4>
     </div>
-  );
-};
-
-export default Info;
+  )
+}

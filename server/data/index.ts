@@ -1,7 +1,17 @@
 import faker from 'faker'
 
 import { PASSWORD, TEST_USER } from '../constants'
-import { User } from '../data/interfaces'
+
+interface User {
+  avatar: string
+  email: string
+  name: string
+  lastname: string
+  password: string
+  phone: string
+  job: string
+  username: string
+}
 
 const users: User[] = [
   {

@@ -5,18 +5,16 @@ import { users } from '../data'
 
 import { KEY } from '../constants'
 
-import { User } from '../data/interfaces'
-
 const createToken = (username: string, secret: string) =>
   jwt.sign(username, secret)
 
 const resolvers = {
   Query: {
     signinUser: async (
-      root: any,
+      root: null,
       { username, password }: { username: string; password: string }
     ) => {
-      const user = users.find((item: User) => item.username === username)
+      const user = users.find(item => item.username === username)
       if (!user) {
         throw new Error('User not found')
       }
@@ -28,8 +26,8 @@ const resolvers = {
       return { token: createToken(user.username, KEY) }
     },
     userInfo: async (
-      root: any,
-      args: any,
+      root: null,
+      args: null,
       { currentUser }: { currentUser: string | object }
     ) => {
       if (currentUser) {

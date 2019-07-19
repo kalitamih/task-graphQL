@@ -17,19 +17,22 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint-ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "export CI=true && yarn build && lint-staged",
-      "pre-push": "export CI=true && yarn build && lint-staged"
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index -g",
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "tslint -c tslint.json"
+      "prettier --write",
+      "npm run lint",
+      "git add"
     ]
   },
   "eslintConfig": {
@@ -48,12 +51,20 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/faker": "^4.1.5",
     "@types/jwt-decode": "^2.2.1",
     "@types/styled-components": "^4.1.18",
     "apollo-boost": "^0.4.3",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "faker": "^4.1.0",
     "husky": "^3.0.0",
+    "install": "^0.13.0",
     "jwt-decode": "^2.2.0",
     "lint-staged": "^9.2.0",
+    "npm": "^6.10.1",
     "prettier": "^1.18.2",
     "react-apollo": "^2.5.8",
     "tslint": "^5.18.0",
