@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from 'apollo-boost'
 
 export const SIGNIN_USER: object = gql`
   query($username: String!, $password: String!) {
@@ -6,7 +6,7 @@ export const SIGNIN_USER: object = gql`
       token
     }
   }
-`;
+`
 
 export const GET_USER_INFO: object = gql`
   query {
@@ -20,4 +20,4 @@ export const GET_USER_INFO: object = gql`
       phone
     }
   }
-`;
+`
