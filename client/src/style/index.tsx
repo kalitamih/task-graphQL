@@ -27,7 +27,7 @@ export const Input = styled.input`
   border: 2px solid #cccccc;
   border-radius: 10px;
   background-color: #ffffff;
-  outline: none;
+  outline: none; /* Исчезает видимая табуляция */ 
 `;
 
 export const Button = styled.button`
