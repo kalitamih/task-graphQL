@@ -9,7 +9,15 @@
     "dev": "nodemon --exec ts-node src/index.ts",
     "watch": "nodemon",
     "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts}'",
-    "test": "jest --coverage --passWithNoTests"   
+    "test": "jest --coverage --passWithNoTests",   
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "prettier --write",
+      "npm run lint",
+      "git add"
+    ]
   },
   "keywords": [],
   "author": "",
