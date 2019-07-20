@@ -1,0 +1,31 @@
+{
+  "name": "task-graphql",
+  "version": "1.0.0",
+  "description": "graphQL",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^3.0.1",
+    "lerna": "^3.16.1"
+  },
+  "scripts": {
+    "test": "lerna run test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run test",
+      "post-commit": "git update-index -g",
+      "pre-push": "lerna run test"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalitamih/task-graphQL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalitamih/task-graphQL/issues"
+  },
+  "homepage": "https://github.com/kalitamih/task-graphQL#readme"
+}
