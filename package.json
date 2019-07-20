@@ -9,11 +9,11 @@
     "lerna": "^3.16.1"
   },
   "scripts": {
-    "test": "lerna run test"
+    
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run test",
+      "pre-commit": "lerna run lint",
       "post-commit": "git update-index -g",
       "pre-push": "lerna run test"
     }
