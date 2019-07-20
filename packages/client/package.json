@@ -17,13 +17,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{tsx}'",
     "test": "react-scripts test  --env=jsdom --watchAll=false",
-    "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "eject": "react-scripts eject"    
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{tsx}": [
       "prettier --write",
       "npm run lint",
       "git add"
@@ -53,7 +52,7 @@
     "apollo-boost": "^0.4.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "faker": "^4.1.0",  
+    "faker": "^4.1.0",
     "install": "^0.13.0",
     "jwt-decode": "^2.2.0",
     "lint-staged": "^9.2.0",

@@ -8,12 +8,11 @@
     "build": "tsc",
     "dev": "nodemon --exec ts-node src/index.ts",
     "watch": "nodemon",
-    "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-    "test": "jest --coverage --passWithNoTests",   
-    "precommit": "lint-staged"
+    "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts}'",
+    "test": "jest --coverage --passWithNoTests"   
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{ts}": [
       "prettier --write",
       "npm run lint",
       "git add"
