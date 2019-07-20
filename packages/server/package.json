@@ -9,7 +9,7 @@
     "dev": "nodemon --exec ts-node src/index.ts",
     "watch": "nodemon",
     "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-    "test": "jest --coverage --passWithNoTests"
+    "test": "jest --coverage --passWithNoTests"   
   },
   "lint-staged": {
     "*.{ts,tsx}": [

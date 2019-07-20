@@ -12,17 +12,10 @@
   "scripts": {},
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "lerna run lint-staged",
       "post-commit": "git update-index -g",
       "pre-push": "lerna run test"
     }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "lerna prettier --write",
-      "lerna run lint",
-      "git add"
-    ]
   },
   "repository": {
     "type": "git",
