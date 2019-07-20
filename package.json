@@ -12,7 +12,7 @@
   "scripts": {},
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "lerna run --concurrency 1 --stream precommit",
       "post-commit": "git update-index -g",
       "pre-push": "lerna run test"
     }

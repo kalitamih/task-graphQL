@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "lint": "tsc --noEmit && tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "test": "react-scripts test  --env=jsdom --watchAll=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
