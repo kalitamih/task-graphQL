@@ -12,7 +12,6 @@ const NetworkError = styled.div`
   margin: 150px auto;
   color: #ff0000;
 `
-
 export const withSession = (Component: React.FC<LoginProps>) => () => (
   <Query query={GET_USER_INFO}>
     {({
@@ -42,7 +41,6 @@ export const withSession = (Component: React.FC<LoginProps>) => () => (
           </NetworkError>
         )
       }
-      console.log('error inside withSession', error)
       return <Component refetch={refetch} session={data} />
     }}
   </Query>
