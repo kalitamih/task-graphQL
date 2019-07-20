@@ -6,7 +6,8 @@
   "dependencies": {},
   "devDependencies": {
     "husky": "^3.0.1",
-    "lerna": "^3.16.1"
+    "lerna": "^3.16.1",
+    "lint-staged": "^9.2.0"
   },
   "private": true,
   "workspaces": [
@@ -17,10 +18,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream lint-staged",
+      "pre-commit": "lerna run --concurrency 1 --stream precommit",
       "post-commit": "git update-index -g",
       "pre-push": "lerna run test"
     }
+  },
+  "lint-staged": {
+    "*.{tsx}": [
+      "lerna prettier --write",
+      "lerna run lint",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
