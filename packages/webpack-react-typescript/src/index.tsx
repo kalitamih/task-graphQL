@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Login } from './components/Login'
+import Login from './components/Login'
 import { withSession } from './components/WithSession'
 import { LINK } from './constants'
 

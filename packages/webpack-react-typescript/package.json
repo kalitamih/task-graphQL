@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "graphql": "^14.4.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "styled-components": "^4.3.2",
-    "typescript": "3.5.3",
+    "@hot-loader/react-dom": "^16.8.6",
     "apollo-boost": "^0.4.3",
+    "graphql": "^14.4.2",
+    "jwt-decode": "^2.2.0",
+    "react": "^16.8.6",
     "react-apollo": "^2.5.8",
-    "jwt-decode": "^2.2.0"
+    "styled-components": "^4.3.2",
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "webpack-dev-server",
@@ -77,5 +77,8 @@
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2"
+  },
+  "alias": {
+    "react-dom": "@hot-loader/react-dom"
   }
 }

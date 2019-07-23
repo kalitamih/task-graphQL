@@ -17,7 +17,7 @@ export const Info: React.FC<InfoType> = ({
           {name} {lastname}
         </h2>
       </div>
-      <h4>{email}</h4>
+      <h4>1</h4>
       <h4>{phone}</h4>
       <h4>{username}</h4>
     </div>

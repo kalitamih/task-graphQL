@@ -1,6 +1,7 @@
 import { ApolloClient } from 'apollo-boost'
 import React, { useState } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+import { hot } from 'react-hot-loader'
 import styled from 'styled-components'
 import { LoginProps } from '../../interfaces'
 import { SIGNIN_USER } from '../../queries'
@@ -48,7 +49,7 @@ const Button = styled.button`
     color: #ffffff;
   }
 `
-export const Login: React.FC<LoginProps> = ({ refetch, session }) => {
+const Login: React.FC<LoginProps> = ({ refetch, session }) => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -98,7 +99,7 @@ export const Login: React.FC<LoginProps> = ({ refetch, session }) => {
                 handleSubmit(event, client)
               }}
             >
-              <h1>Login:</h1>
+              <h1>Logn:</h1>
               <Input
                 type="text"
                 name="login"
@@ -132,3 +133,4 @@ export const Login: React.FC<LoginProps> = ({ refetch, session }) => {
   )
 }
 
+export default hot(module)(Login)
