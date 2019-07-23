@@ -99,7 +99,7 @@ const Login: React.FC<LoginProps> = ({ refetch, session }) => {
                 handleSubmit(event, client)
               }}
             >
-              <h1>Logn:</h1>
+              <h1>Login:</h1>
               <Input
                 type="text"
                 name="login"
