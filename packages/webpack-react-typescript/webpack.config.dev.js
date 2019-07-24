@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const rules = [
   {
@@ -29,6 +30,10 @@ module.exports = {
   },
   target: 'web',
   plugins: [
+    new HtmlWebPackPlugin({
+        template: './index.html'
+    }),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  devtool: 'inline-source-map'
 }
